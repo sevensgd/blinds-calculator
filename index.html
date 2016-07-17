@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Żaluzje plisowane - kalkulator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+      /*
+        To jest klasa z której korzystam aby wyświetlić błąd jak ktoś źle
+        coś w formularzu wpisze. Zobacz gdzieś na dole mam ją ustawioną jako errorClass
+      */
+      .error {
+        color: rgb(135, 0, 0);
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!--
+    Korzystam z bootstrap, bo domyslne style w przegladarce sa brzydkie i nie chce na nie patrzec kodując,
+    jquery aby bawić się z formularzem i jquery validate aby latwo sprawdzic poprawnosc danych w formularzu.
+    Na dole tez na twardo wkleilem polskie tlumaczenia komunikatow jquery validate aby mozna
+    je bylo latwo pozmieniać.
+    -->
+
+    <div class="container">
+      <div class="row" style="margin-top:10px; margin-bottom:30px;">
+        <div class="col-md-6 col-md-offset-3 text-center">
+          <h3>Żaluzje plisowane - kalkulator</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+          <form id="zaluzje-plisowe-kalkulator-form">
+            <div class="form-group">
+              <label for="szerokosc">Szerokość (cm)</label>
+              <input type="number" class="form-control" id="szerokosc" name="szerokosc" placeholder="" />
+            </div>
+            <div class="form-group">
+              <label for="wysokosc">Wysokość (cm)</label>
+              <input type="number" class="form-control" id="wysokosc" name="wysokosc" placeholder="" />
+            </div>
+            <div class="form-group">
+              <label for="kolormechanizmu">Kolor mechanizmu</label>
+              <select class="form-control" id="kolormechanizmu" name="kolormechanizmu">
+                <option value=""></option>
+                <option value="1">Biały</option>
+                <option value="2">Ciemny brąz</option>
+                <option value="3">Mahoń</option>
+                <option value="4">Orzech</option>
+                <option value="5">Sosna</option>
+                <option value="6">Srebrny</option>
+                <option value="7">Złoty Dąb</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="kolortkaniny">Kolor tkaniny</label>
+              <select class="form-control" id="kolortkaniny" name="kolortkaniny">
+                <option value=""></option>
+                <option value="1">Basel 1201 Kremowy</option>
+                <option value="2">Basel 1203 Beżowy</option>
+                <option value="3">Basel 1204 Pomarańczowy</option>
+                <option value="4">Basel 1209 Błękitny</option>
+                <option value="5">Basel 1210 Żółty</option>
+                <option value="6">Basel 1211 Niebieski</option>
+                <option value="7">Basel 1213 Szary</option>
+                <option value="8">Basel 1215 Czarny</option>
+                <option value="9">Basel 1217 Gafitowy</option>
+                <option value="10">Basel 1219 Czerwony</option>
+                <option value="11">Basel 1220 Biały</option>
+                <option value="12">Basel 1222 Zielony</option>
+                <option value="13">Basel 1223 Ciemnozielony</option>
+                <option value="14">Basel 1226 Śliwka</option>
+                <option value="15">Kamari 04 Grafitowy</option>
+                <option value="16">Kamari 05 Beż</option>
+                <option value="17">Kamari 06 Jasny Beż</option>
+                <option value="18">Kamari 07 Ciemny Beż</option>
+                <option value="19">Kamari 09 Żółty</option>
+                <option value="20">Kamari 10 Rudy</option>
+                <option value="21">Kamari 11 Bordo</option>
+                <option value="22">Kamari 16 Niebieski</option>
+                <option value="23">Kamari 17 Granatowy</option>
+                <option value="24">Kamari 18 Brąz</option>
+                <option value="25">Kamari 20 Biały</option>
+                <option value="26">Kamari 22 Karmel</option>
+                <option value="27">Kamari 24 Pomarańczowy</option>
+                <option value="28">Kamari 25 Wenge</option>
+                <option value="29">Kamari 26 Fioletowy</option>
+                <option value="30">Kamari 27 Limonka</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="montaz">Montaż</label>
+              <select class="form-control" id="montaz" name="montaz">
+                <option value=""></option>
+                <option value="1">Standardowy</option>
+                <option value="2">Bezinwazyjny +2zł</option>
+                <option value="3">Do okna dachowego +30zł</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="ilosc">Ilość (sztuk)</label>
+              <input type="number" class="form-control" id="ilosc" name="ilosc" placeholder="" />
+            </div>
+            <button type="submit" class="btn btn-default" id="wycen-przycisk">Wyceń</button>
+          </form>
+        </div>
+      </div>
+      <div class="row" style="margin-top:20px; margin-bottom:30px;">
+        <div class="col-md-4 col-md-offset-4 text-center bg-success" id="komunikaticena"></div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+
+    <script>
+
+    /*
+      Polskie tlumaczenie dla jquery validate wzięte na chama z githuba
+    */
+
+      $.extend( $.validator.messages, {
+        required: "To pole jest wymagane.",
+        remote: "Proszę o wypełnienie tego pola.",
+        email: "Proszę o podanie prawidłowego adresu email.",
+        url: "Proszę o podanie prawidłowego URL.",
+        date: "Proszę o podanie prawidłowej daty.",
+        dateISO: "Proszę o podanie prawidłowej daty (ISO).",
+        number: "Proszę o podanie prawidłowej liczby.",
+        digits: "Proszę o podanie samych cyfr.",
+        creditcard: "Proszę o podanie prawidłowej karty kredytowej.",
+        equalTo: "Proszę o podanie tej samej wartości ponownie.",
+        extension: "Proszę o podanie wartości z prawidłowym rozszerzeniem.",
+        maxlength: $.validator.format( "Proszę o podanie nie więcej niż {0} znaków." ),
+        minlength: $.validator.format( "Proszę o podanie przynajmniej {0} znaków." ),
+        rangelength: $.validator.format( "Proszę o podanie wartości o długości od {0} do {1} znaków." ),
+        range: $.validator.format( "Proszę o podanie wartości z przedziału od {0} do {1}." ),
+        max: $.validator.format( "Proszę o podanie wartości mniejszej bądź równej {0}." ),
+        min: $.validator.format( "Proszę o podanie wartości większej bądź równej {0}." ),
+        pattern: $.validator.format( "Pole zawiera niedozwolone znaki." )
+      } );
+    </script>
+
+    <script>
+      $(document).ready(function(){
+
+        /*
+          Zaczynam od schowania pola na ktorym po wszystkim pokaże komunikat
+          z informacją o zamówieniu i wyliczoną ceną - pokaże go jak będzie gotowe.
+        */
+
+        $("#komunikaticena").hide();
+
+        /*
+          Jazda - sprawdzanie i wysylanie formularza
+        */
+
+        $("#zaluzje-plisowe-kalkulator-form").validate({
+
+          /*
+            Tutaj sprawdzam czy w polach formularza jest to czego chce.
+          */
+
+          errorElement: 'label',
+          errorClass: 'error',
+          rules: {
+            szerokosc: {
+              required: true,
+              range: [0.1, 160]
+            },
+            wysokosc: {
+              required: true,
+              range: [30, 240]
+            },
+            kolormechanizmu: {
+              required: true
+            },
+            kolortkaniny: {
+              required: true
+            },
+            montaz: {
+              required: true
+            },
+            ilosc: {
+              required: true,
+              min: 1
+            }
+          },
+
+          /*
+            Do boju - przycisk naciśnięty, czas działać
+          */
+
+          submitHandler: function (form) {
+
+            /*
+              To jest moja baza danych - trzymam tu ceny i opisy wszystkich opcji
+              Idea z tabelami jest taka ze jak ktos sobie wybierze na gorze np. opcje machenizmu Orzech,
+              to przyjdzie do mnie cyfra 4 (option value="4"). Czyli jak zobacze sobie
+              kolormechanizmuOpis[4] to zobacze ze chodzi o Orzech.
+              Jak zobacze kolormechanizmuCennik[4] to zobacze jaka mam za niego cene.
+              Pamietaj ze pierwszy element w tabeli ma index 0 a nie 1. Zrobiłem tak lamersko
+              że w pozycji [0] tabeli jest 0 jako zapchaj dziura ...
+
+              W tym miejscu odbywa się największe pójście na skróty - to powinno znaleść się
+              w normalnej bazie danych, powinno być udostępnione dla tej aplikacji w postaci
+              REST API które sobie można wywołać. Te dane powinne być również użyte do wypełnienia
+              opcji w formularzu a tak są i tu z palca i w formularzu z palca. Łatwo się
+              będzie jebnąć w zarządzaniu - trzeba pilnować żeby to co w formularzu zgadzalo się
+              z tym co jest tu na dole.
+            */
+
+            var szerokoscCena = 10;
+            var wysokoscCena = 10;
+            var kolormechanizmuOpis = ["Biały", "Ciemny brąz", "Mahoń", "Orzech", "Sosna", "Srebrny", "Złoty Dąb"];
+            var kolormechanizmuCennik = [0, 10, 10, 10, 10, 10, 10, 10]; /* pierwsze jest 0, ignoruj je, a po nim pierwsza cena, druga itp */
+            var kolortkaninyOpis = ["Basel 1201 Kremowy", "Basel 1203 Beżowy", "Basel 1204 Pomarańczowy", "Basel 1209 Błękitny",
+            "Basel 1210 Żółty", "Basel 1211 Niebieski", "Basel 1213 Szary", "Basel 1215 Czarny",
+            "Basel 1217 Gafitowy", "Basel 1219 Czerwony", "Basel 1220 Biały", "Basel 1222 Zielony",
+            "Basel 1223 Ciemnozielony", "Basel 1226 Śliwka", "Kamari 04 Grafitowy", "Kamari 05 Beż",
+            "Kamari 06 Jasny Beż", "Kamari 07 Ciemny Beż", "Kamari 09 Żółty", "Kamari 10 Rudy",
+            "Kamari 11 Bordo", "Kamari 16 Niebieski", "Kamari 17 Granatowy", "Kamari 18 Brąz",
+            "Kamari 20 Biały", "Kamari 22 Karmel", "Kamari 24 Pomarańczowy", "Kamari 25 Wenge",
+            "Kamari 26 Fioletowy", "Kamari 27 Limonka"];
+            var kolortkaninyCennik = [0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+                                      10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+                                      10, 10, 10, 10, 10, 10, 10, 10, 10, 10]; /* pierwsze jest 0, ignoruj je, a po nim pierwsza cena, druga itp */
+            var montazOpis = ["Standardowy", "Bezinwazyjny", "Do okna dachowego"];
+            var montazCennik = [0, 0, 2, 30]; /* pierwsze jest 0, ignoruj je, a po nim pierwsza cena, druga itp */
+
+            /*
+              Po kliknięciu submit biorę sobie to co bylo w formularzu i przypisuje do zmiennych
+            */
+
+            var szerokosc =  $("#szerokosc").val();
+            var wysokosc =  $("#wysokosc").val();
+            var kolormechanizmu =  $("#kolormechanizmu option:selected").val();
+            var kolortkaniny =  $("#kolortkaniny option:selected").val();
+            var montaz =  $("#montaz option:selected").val();
+            var ilosc =  $("#ilosc").val();
+
+            /*
+              To co robie to zamieniam to co przyszlo na liczby mając
+              nadzieję że te teksty które dostaje to liczby.
+            */
+
+            var szerokoscLiczba =  Math.floor(szerokosc);
+            var wysokoscLiczba =  Math.floor(wysokosc);
+            var kolormechanizmuLiczba =  parseInt(kolormechanizmu)
+            var kolortkaninyLiczba =  parseInt(kolortkaniny);
+            var montazLiczba =  parseInt(montaz);
+            var iloscliczba =  parseInt(ilosc);
+
+            /*
+              W jednej tekstowej zmiennej zapiszmy co zostalo zamówione.
+            */
+
+            var komunikat = "Twoja żaluzja ma szerokość " + szerokosc
+              + "cm, wysokość " + wysokosc + "cm. Wybrany kolor mechanizmu to "
+              + kolormechanizmuOpis[kolormechanizmuLiczba] + ", kolor tkaniny to "
+              + kolortkaninyOpis[kolormechanizmuLiczba]
+              + " a typ montażu został ustawiony na " + montazOpis[montazLiczba]
+              + ". Wycena została przygotowana dla "
+              + ilosc + " sztuk."
+
+            /*
+              Przykladowe wyliczenie ceny, tak na zdrowy rozum.
+              cena = ( kolor mechanizmu * szerokosc +
+                    kolor tkaniny * wysokosc * szerokosc +
+                    cena montazu ) * ilosc
+            */
+
+            var cena = (kolormechanizmuCennik[kolormechanizmuLiczba]*szerokoscLiczba
+                        +kolortkaninyCennik[kolortkaninyLiczba]*szerokoscLiczba*wysokoscLiczba
+                        +montazCennik[montazLiczba])*iloscliczba;
+
+            /*
+              Mam komunikat, mam cenę, teraz trzeba to gdzieś wyswietlić
+            */
+
+            $("#komunikaticena").html("<h3>Wycena: "+cena+" PLN</h3><p>"+komunikat+"</p>");
+            $("#komunikaticena").show();
+
+            /*
+              I na koniec jeszcze info na wszelki wypadek żeby nigdzie nie pójść
+              po wysłaniu formularza.
+            */
+
+            event.preventDefault();
+          }
+        });
+
+      });
+    </script>
+  </body>
+</html>
