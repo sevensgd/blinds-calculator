@@ -216,12 +216,15 @@
               opcji w formularzu a tak są i tu z palca i w formularzu z palca. Łatwo się
               będzie jebnąć w zarządzaniu - trzeba pilnować żeby to co w formularzu zgadzalo się
               z tym co jest tu na dole.
+
+              Wykomentowane nieuzywane zmienne i dodane nowe - po rozmowie na czacie FB
+              na temat tego jak ma dzialac algorytm wyceny
             */
 
-            var szerokoscCena = 10;
-            var wysokoscCena = 10;
+            // var szerokoscCena = 10;
+            // var wysokoscCena = 10;
             var kolormechanizmuOpis = ["Biały", "Ciemny brąz", "Mahoń", "Orzech", "Sosna", "Srebrny", "Złoty Dąb"];
-            var kolormechanizmuCennik = [0, 10, 10, 10, 10, 10, 10, 10]; /* pierwsze jest 0, ignoruj je, a po nim pierwsza cena, druga itp */
+            // var kolormechanizmuCennik = [0, 10, 10, 10, 10, 10, 10, 10]; /* pierwsze jest 0, ignoruj je, a po nim pierwsza cena, druga itp */
             var kolortkaninyOpis = ["Basel 1201 Kremowy", "Basel 1203 Beżowy", "Basel 1204 Pomarańczowy", "Basel 1209 Błękitny",
             "Basel 1210 Żółty", "Basel 1211 Niebieski", "Basel 1213 Szary", "Basel 1215 Czarny",
             "Basel 1217 Gafitowy", "Basel 1219 Czerwony", "Basel 1220 Biały", "Basel 1222 Zielony",
@@ -230,9 +233,9 @@
             "Kamari 11 Bordo", "Kamari 16 Niebieski", "Kamari 17 Granatowy", "Kamari 18 Brąz",
             "Kamari 20 Biały", "Kamari 22 Karmel", "Kamari 24 Pomarańczowy", "Kamari 25 Wenge",
             "Kamari 26 Fioletowy", "Kamari 27 Limonka"];
-            var kolortkaninyCennik = [0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-                                      10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-                                      10, 10, 10, 10, 10, 10, 10, 10, 10, 10]; /* pierwsze jest 0, ignoruj je, a po nim pierwsza cena, druga itp */
+            // var kolortkaninyCennik = [0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+            //                          10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+            //                          10, 10, 10, 10, 10, 10, 10, 10, 10, 10]; /* pierwsze jest 0, ignoruj je, a po nim pierwsza cena, druga itp */
             var montazOpis = ["Standardowy", "Bezinwazyjny", "Do okna dachowego"];
             var montazCennik = [0, 0, 2, 30]; /* pierwsze jest 0, ignoruj je, a po nim pierwsza cena, druga itp */
 
@@ -247,6 +250,15 @@
             var montaz =  $("#montaz option:selected").val();
             var ilosc =  $("#ilosc").val();
 
+            console.log("*** Co odczytalismy z formularza:");
+            console.log("szerokosc: " + szerokosc);
+            console.log("wysokosc: " + wysokosc);
+            console.log("kolormechanizmu: " + kolormechanizmu);
+            console.log("kolortkaniny: " + kolortkaniny);
+            console.log("montaz: " + montaz);
+            console.log("ilosc: " + ilosc);
+            console.log("-----------------------------------------");
+
             /*
               To co robie to zamieniam to co przyszlo na liczby mając
               nadzieję że te teksty które dostaje to liczby.
@@ -258,6 +270,15 @@
             var kolortkaninyLiczba =  parseInt(kolortkaniny);
             var montazLiczba =  parseInt(montaz);
             var iloscliczba =  parseInt(ilosc);
+
+            console.log("*** Zamieniam to co odczytalismy z formularza na liczby:");
+            console.log("szerokosc: " + szerokoscLiczba);
+            console.log("wysokosc: " + wysokoscLiczba);
+            console.log("kolormechanizmu: " + kolormechanizmuLiczba);
+            console.log("kolortkaniny: " + kolortkaninyLiczba);
+            console.log("montaz: " + montazLiczba);
+            console.log("ilosc: " + iloscliczba);
+            console.log("-----------------------------------------");
 
             /*
               W jednej tekstowej zmiennej zapiszmy co zostalo zamówione.
@@ -272,21 +293,30 @@
               + ilosc + " sztuk."
 
             /*
-              Przykladowe wyliczenie ceny, tak na zdrowy rozum.
-              cena = ( kolor mechanizmu * szerokosc +
-                    kolor tkaniny * wysokosc * szerokosc +
-                    cena montazu ) * ilosc
+              ALgorytm wyliczenia ceny zgodnie z rozmowa na FB
             */
 
-            var cena = (kolormechanizmuCennik[kolormechanizmuLiczba]*szerokoscLiczba
-                        +kolortkaninyCennik[kolortkaninyLiczba]*szerokoscLiczba*wysokoscLiczba
-                        +montazCennik[montazLiczba])*iloscliczba;
+            console.log("*** Algorytm wyliczania ceny startuje tutaj:");
+
+            var cenaZaSztuke = szerokoscLiczba*1.5+montazCennik[montazLiczba]; // szerokosc * 1.5 + cena montazu
+            console.log("Szerokosc ("+szerokoscLiczba+") razy 1,5 plus montaz ("+montazCennik[montazLiczba]+") daje ceneZaSztuke = " + cenaZaSztuke);
+
+            if (wysokoscLiczba >= 150) {
+              cenaZaSztuke = cenaZaSztuke + 30; //dodaje 30 zl jak wysokosc jest wieksza badz rowna 150
+              console.log("Wysokosc jest wieksza badz rowna 150 wiec dodaje 30 zeta i cenaZaSztuke = " + cenaZaSztuke);
+            }
+
+            var cena = iloscliczba*cenaZaSztuke;
+            console.log("Finalna cena to cenaZaSztuke ("+cenaZaSztuke+") razy ilosc ("+iloscliczba+") sie rowna = " + cena);
+            var zetonyAllegro = Math.ceil(cena / 1.5); // zaokraglam w gore
+            console.log("Przeliczam teraz zetony alegrowe czyli biore cene ("+cena+") i dziele przez 1,5. Zaokraglam to w gore zeby nie bylo ulamka i wychodzi = "+zetonyAllegro);
+            console.log("-----------------------------------------");
 
             /*
-              Mam komunikat, mam cenę, teraz trzeba to gdzieś wyswietlić
+              Mam komunikat, mam cenę i żetony na allegro, teraz trzeba to gdzieś wyswietlić
             */
 
-            $("#komunikaticena").html("<h3>Wycena: "+cena+" PLN</h3><p>"+komunikat+"</p>");
+            $("#komunikaticena").html("<h4>Wycena: "+cena+" PLN</h4><h4>Powinienes zalicytować: "+zetonyAllegro+" sztuk</h4><p>"+komunikat+"</p>"+zetonyAllegro);
             $("#komunikaticena").show();
 
             /*
